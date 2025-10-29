@@ -1,7 +1,18 @@
 ---
-title: "Holy cow!"
+title: "A Small but Functinal Webpage of Yishi"
 ---
 
-### I have a webpage!
+### Me
 
-And I can put all kinds of stuff on it!
+Hi — I’m a mathematician-turned-biostatistics student now studying at Columbia Mailman to deepen my career toolkit. For more about my academic and professional experience, check the [about](about.html) page.
+
+### Links
+
+You can find my email and other profiles on the upper right of this page.
+
+
+### Cat
+
+Below is picture of Mino, my green-eyed British Shorthair friend.
+
+![](local_files/cat.jpeg)

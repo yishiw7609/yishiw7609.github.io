@@ -3,3 +3,6 @@ title: "About Me"
 ---
 
 ### Bio
+Over the past year I interned as an AI engineer at a biotech company, where I worked on computer-vision models for identifying cancers in whole-slide images and building tools that help pathologists make better, faster decisions.
+
+Here is my [CV](local_files/Wang-CV.pdf) if you are interested!
