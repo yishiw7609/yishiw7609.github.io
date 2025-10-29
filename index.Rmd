@@ -10,6 +10,10 @@ Hi — I’m a mathematician-turned-biostatistics student now studying at Columb
 
 You can find my email and other profiles on the upper right of this page.
 
+### Flexdashboard
+
+Here is a sample [Flexdashboard](dashboard.html) with 3 plots on Manhattan Restaurant Inspection Results data.
+
 
 ### Cat
 

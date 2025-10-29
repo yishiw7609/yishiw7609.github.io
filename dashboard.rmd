@@ -1,0 +1,98 @@
+---
+title: "A random Flaxdashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(p8105.datasets)
+library(plotly)
+library(tidyverse)
+```
+```{r}
+data("rest_inspec")
+
+rest_inspec = rest_inspec |>
+  janitor::clean_names() |>
+  drop_na() |>
+  filter(boro == "Manhattan") |>
+  mutate(inspection_date = as.Date(inspection_date))
+```
+
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+monthly_score = rest_inspec |>
+  mutate(month = floor_date(inspection_date, "month")) |>
+  group_by(month) |>
+  summarize(mean_score = mean(score, na.rm = TRUE), inspections = n(), .groups = "drop")
+
+p1 = plot_ly(
+  monthly_score,
+  x = ~month,
+  y = ~mean_score,
+  type = "scatter",
+  mode = "lines+markers",
+  hoverinfo = "text",
+  text = ~paste("Month:", month, "<br>Mean score:", round(mean_score,1), "<br>Inspections:", inspections)
+) |>
+  layout(title = "Average inspection score by month",
+         xaxis = list(title = "Month"),
+         yaxis = list(title = "Mean score"))
+p1
+```
+
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
+
+```{r}
+grade_counts = rest_inspec |>
+  mutate(grade = ifelse(is.na(grade) | grade == "", "Unknown", grade)) |>
+  group_by(grade) |>
+  summarize(count = n(), .groups = "drop") |>
+  arrange(desc(count))
+
+p2 = plot_ly(
+  grade_counts,
+  x = ~grade,
+  y = ~count,
+  type = "bar",
+  text = ~count,
+  textposition = "auto"
+) |>
+  layout(title = "Number of inspections by grade",
+         xaxis = list(title = "Grade"),
+         yaxis = list(title = "Count"))
+p2
+```
+
+### Chart C
+
+```{r}
+p3 = plot_ly(
+  rest_inspec,
+  x = ~critical_flag,
+  y = ~score,
+  type = "box",
+  boxpoints = "all",      # show all points
+  jitter = 0.3,
+  pointpos = -1.8,
+  hoverinfo = "text",
+  text = ~paste("Score:", score, "<br>Date:", inspection_date, "<br>Violation code:", violation_code)
+) |>
+  layout(title = "Score distribution by critical violation flag (Y/N)",
+         xaxis = list(title = "Critical violation (Y/N)"),
+         yaxis = list(title = "Score"))
+p3
+
+```
+
